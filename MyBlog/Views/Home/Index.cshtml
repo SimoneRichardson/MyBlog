@@ -1,0 +1,54 @@
+﻿@model IEnumerable<MyBlog.Models.Post>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+@if (Model.Any())
+{
+    foreach(var post in Model) {
+        <div class="post">
+            <div class="title">
+               <h3>@post.Title</h3>
+                <span> By: @post.Author.Name on @post.DateCreated.ToShortDateString()</span>
+            </div>
+            <div class ="body">
+                @*if the post has a Image, show it! *@
+                    @if (!string.IsNullOrEmpty(post.ImageURL)) {
+                        <img height="75" src="@post.ImageURL" />
+                        }
+                @post.Body
+            </div>
+           @* data-id holds the postID of this particulat post*@
+            <div class ="likes"data-id="@post.PostID"> 
+             @post.Likes likes
+            </div>
+            <div class="commentContainer">
+              @if (post.Comments.Any()){
+                  @*loop over and display each comment*@
+                foreach (var comment in post.Comments){ 
+                <div>
+                     @Html.Partial("comment", comment)
+                </div>          
+            } 
+            }
+            else
+            {
+                <div>No Comments.</div>
+            }
+           <div class="addComment">
+               @*make a new instance of an object, with the post Id set *@
+                @Html.Partial("addComment",new MyBlog.Models.Comment() {PostID = post.PostID})
+
+           </div>
+              </div>
+        </div>
+    }
+}
+else
+{
+    <div>No posts yet</div>
+
+    }
+}
+    

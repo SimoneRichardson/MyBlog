@@ -1,0 +1,11 @@
+﻿@model MyBlog.Models.Comment
+
+<div class="comment">
+                        <span class="CommentTitle">
+                        By: @Model.Name on @Model.DateCreated.ToLongDateString()
+                        </span>
+                        <div>
+                        @Model.Body
+                        </div>
+           </div>
+

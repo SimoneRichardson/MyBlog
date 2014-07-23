@@ -1,0 +1,51 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <header>
+        <div id="blog">
+           <h1> My Blog</h1>
+        </div> 
+        <div id="dogimage">
+        <img border="0" src="/Content/dogs-wallpaper (1).jpg" width"304" height="228">
+        </div>
+        @* if Request Is authenticated is true the user is logged in*@
+        @if (Request.IsAuthenticated){
+    <div>
+         Welcome @User.Identity.Name @*welcome <username>*@
+        <a href="@Url.Action("Logout", "Account")">Logout</a>
+        <a href="@Url.Action("Create", "Post")">Create Your posts</a> 
+        <a href="@Url.Action("Login", "Home")">Login</a>
+        <a href="@Url.Action("Post", "Index")">View Your posts</a>
+
+	<ul id="subscribe">
+		<li class="twitter"><a href="#"><img height="50"src="http://www.kshs.org/interact/graphics/twitter_logo.png"</a></li> 
+		<li class="rss"><a href="http:#"><img height ="50" src="http://www-prod-storage.cloud.caltech.edu.s3.amazonaws.com/RSS_button_1021.png"</a></li>
+        <li class="facebook"><a href=#><img height="50" src="http://img2.wikia.nocookie.net/__cb20111228065447/simpsons/images/d/dd/Facebook-icon.png"</a></li>
+	</ul>
+    <h2>The super blog of Simone Richardson</h2>
+          </div>
+    
+        }
+        else
+        {
+       <div>
+           <a href="@Url.Action("Login", "Account")">Log In</a>
+           <a href="@Url.Action("Register", "Account")">Register</a>
+       </div>
+        }
+        
+                </header>
+    @RenderBody()
+
+    @Scripts.Render("~/bundles/jquery")
+    @RenderSection("scripts", required: false)
+    <script src ="/Scripts/Main.js"></script>
+</body>
+</html>
